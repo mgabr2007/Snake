@@ -11,6 +11,9 @@ def initialize_game():
     st.session_state.board_size = board_size
 
 def move_snake():
+    if st.session_state.game_over:
+        return
+
     head_x, head_y = st.session_state.snake[-1]
     direction = st.session_state.direction
     if direction == 'right':
@@ -47,6 +50,7 @@ def handle_input(direction):
     opposite = {'up': 'down', 'down': 'up', 'left': 'right', 'right': 'left'}
     if direction != opposite[st.session_state.direction]:
         st.session_state.direction = direction
+    st.experimental_rerun()
 
 if 'snake' not in st.session_state:
     initialize_game()
